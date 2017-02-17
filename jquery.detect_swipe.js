@@ -23,7 +23,7 @@
     enabled: 'ontouchstart' in document.documentElement,
     preventDefault: true,
     threshold: 20,
-    edgethreshold: 40,
+    edgethreshold: $(window).width() / 15,
     debug: false
   };
 
@@ -80,11 +80,6 @@
       isMoving = true;
       this.addEventListener('touchmove', onTouchMove, false);
       this.addEventListener('touchend', onTouchEnd, false);
-        
-        console.log($(window).width());
-        console.log($(window).height());
-        console.log(startX);
-        console.log(startY);
     }
   }
 
