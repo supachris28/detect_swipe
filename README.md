@@ -28,4 +28,5 @@ Global setting:
 
     $.detectSwipe.threshold // The number of pixels your finger must move to trigger a swipe event.  Defaults is 20.
     $.detectSwipe.preventDefault // Should touchmove events be prevented?  Defaults to true.
-    $.detectSwipe.edgethreshold // The number of pixels at the edges the the start of the swipe that should be interpreted as an "edge" swipe.  Defaults to 15% of the page width on load.
+    $.detectSwipe.edgethreshold // The number of pixels at the edges of the window that the swipe that should be  
+                                // interpreted as an "edge" swipe.  Defaults to 15% of the page width on load.
