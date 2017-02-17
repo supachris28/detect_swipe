@@ -40,8 +40,8 @@
   function onTouchMove(e) {
     if ($.detectSwipe.preventDefault) { e.preventDefault(); }
     if(isMoving) {
-      var x = e.touches[0].pageX;
-      var y = e.touches[0].pageY;
+      var x = e.touches[0].clientX;
+      var y = e.touches[0].clientY;
       var dx = startX - x;
       var dy = startY - y;
       var dir;
@@ -75,8 +75,8 @@
 
   function onTouchStart(e) {
     if (e.touches.length == 1) {
-      startX = e.touches[0].pageX;
-      startY = e.touches[0].pageY;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
       isMoving = true;
       this.addEventListener('touchmove', onTouchMove, false);
       this.addEventListener('touchend', onTouchEnd, false);
