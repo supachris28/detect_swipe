@@ -103,7 +103,7 @@
   $.each(['top', 'bottom', 'left', 'right'], function () {
     $.event.special['swipefrom' + this] = { 
         setup: function(){
-            $(this).on('swipefrom', $.noop);
+            $(this).on('swipe', $.noop);
         } 
     };
   });
