@@ -22,7 +22,9 @@
     version: '2.1.2',
     enabled: 'ontouchstart' in document.documentElement,
     preventDefault: true,
-    threshold: 20
+    threshold: 20,
+    edgethreshold: 20,
+    debug: false
   };
 
   var startX,
@@ -44,13 +46,26 @@
       var dy = startY - y;
       var dir;
       if(Math.abs(dx) >= $.detectSwipe.threshold) {
-        dir = dx > 0 ? 'left' : 'right'
+        dir = dx > 0 ? 'left' : 'right';
+        if (startX < edgethreshold && dir == 'right') {
+            dir = 'fromleft';
+        } else if (startX > ($(window).width - edgethreshold) && dir == 'left') {
+            dir = 'fromright';
+        }
       }
       else if(Math.abs(dy) >= $.detectSwipe.threshold) {
-        dir = dy > 0 ? 'up' : 'down'
+        dir = dy > 0 ? 'up' : 'down';
+        if (startY < edgethreshold && dir == 'down') {
+            dir = 'fromtop';
+        } else if (startY > ($(window).height - edgethreshold) && dir == 'up') {
+            dir = 'frombottom';
+        }
       }
       if(dir) {
         onTouchEnd.call(this);
+        if ($.detectSwipe.debug) {
+            console.log(dir);
+        }
         $(this).trigger('swipe', dir).trigger('swipe' + dir);
       }
     }
@@ -77,8 +92,17 @@
   $.event.special.swipe = { setup: setup };
 
   $.each(['left', 'up', 'down', 'right'], function () {
-    $.event.special['swipe' + this] = { setup: function(){
-      $(this).on('swipe', $.noop);
-    } };
+    $.event.special['swipe' + this] = { 
+        setup: function(){
+            $(this).on('swipe', $.noop);
+        } 
+    };
+  });
+  $.each(['top', 'bottom', 'left', 'right'], function () {
+    $.event.special['swipefrom' + this] = { 
+        setup: function(){
+            $(this).on('swipefrom', $.noop);
+        } 
+    };
   });
 }));
