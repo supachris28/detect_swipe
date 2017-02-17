@@ -23,7 +23,7 @@
     enabled: 'ontouchstart' in document.documentElement,
     preventDefault: true,
     threshold: 20,
-    edgethreshold: 20,
+    edgethreshold: 40,
     debug: false
   };
 
@@ -45,19 +45,21 @@
       var dx = startX - x;
       var dy = startY - y;
       var dir;
+        
       if(Math.abs(dx) >= $.detectSwipe.threshold) {
         dir = dx > 0 ? 'left' : 'right';
-        if (startX < edgethreshold && dir == 'right') {
+          
+        if (startX < $.detectSwipe.edgethreshold && dir == 'right') {
             dir = 'fromleft';
-        } else if (startX > ($(window).width - edgethreshold) && dir == 'left') {
+        } else if (startX > ($(window).width() - $.detectSwipe.edgethreshold) && dir == 'left') {
             dir = 'fromright';
         }
       }
       else if(Math.abs(dy) >= $.detectSwipe.threshold) {
         dir = dy > 0 ? 'up' : 'down';
-        if (startY < edgethreshold && dir == 'down') {
+        if (startY < $.detectSwipe.edgethreshold && dir == 'down') {
             dir = 'fromtop';
-        } else if (startY > ($(window).height - edgethreshold) && dir == 'up') {
+        } else if (startY > ($(window).height() - $.detectSwipe.edgethreshold) && dir == 'up') {
             dir = 'frombottom';
         }
       }
@@ -78,6 +80,11 @@
       isMoving = true;
       this.addEventListener('touchmove', onTouchMove, false);
       this.addEventListener('touchend', onTouchEnd, false);
+        
+        console.log($(window).width());
+        console.log($(window).height());
+        console.log(startX);
+        console.log(startY);
     }
   }
 
